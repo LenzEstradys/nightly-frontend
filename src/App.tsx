@@ -85,8 +85,8 @@ const crearIconoPersonalizado = (tipo: string, estado: string): string => {
 };
 
 function App() {
-  const [locales, setLocales] = useState<Local[]>([]);
-  const [localSeleccionado, setLocalSeleccionado] = useState<Local | null>(null);
+  const [locales, setLocales] = useState<anyl[]>([]);
+  const [localSeleccionado, setLocalSeleccionado] = useState<any | null>(null);
   const [cargando, setCargando] = useState(true);
   const [modoEscuadron, setModoEscuadron] = useState(false);
   const { isLoaded } = useJsApiLoader({
