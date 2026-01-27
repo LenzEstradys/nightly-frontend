@@ -1,23 +1,10 @@
+import { fetchLocales } from './utils/api';
 import { useState, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { Music, Users, Home, Shield, Zap, X } from 'lucide-react';
 import { sanitizeLocal, sanitizeLocales } from './utils/sanitize';
 
-interface Local {
-  id: string;
-  nombre: string;
-  tipo: string;
-  latitud: number;
-  longitud: number;
-  direccion: string;
-  estado: 'fuego' | 'caliente' | 'medio' | 'vacio';
-  capacidad_actual: number;
-  musica_actual?: string;
-  promocion?: string;
-  tiempo_espera: number;
-  tiene_musica_en_vivo: boolean;
-  es_zona_segura: boolean;
-}
+import { Local, APIResponse } from './types';
 
 const mapContainerStyle = {
   width: '100%',
@@ -85,8 +72,10 @@ const crearIconoPersonalizado = (tipo: string, estado: string): string => {
 };
 
 function App() {
-  const [locales, setLocales] = useState([]);
-  const [localSeleccionado, setLocalSeleccionado] = useState(null);
+  
+const [locales, setLocales] = useState<Local[]>([]);
+const [localSeleccionado, setLocalSeleccionado] = useState<Local | 
+null>(null);
   const [cargando, setCargando] = useState(true);
   const [modoEscuadron, setModoEscuadron] = useState(false);
   const { isLoaded } = useJsApiLoader({
@@ -102,20 +91,23 @@ function App() {
   }, []);
 
   const obtenerLocales = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/locales`);
-      const resultado = await response.json();
-      if (resultado.success) {
-        // 🛡️ SANITIZAR todos los locales antes de guardar en estado
-        const localesSanitizados = sanitizeLocales(resultado.data);
-        setLocales(localesSanitizados);
-      }
-    } catch (error) {
-      console.error('Error obteniendo locales:', error);
-    } finally {
-      setCargando(false);
+  try {
+    const resultado = await fetchLocales();
+    
+    if (resultado.success && resultado.data) {
+      // Sanitizar todos los locales antes de guardar en estado
+      const localesSanitizados = sanitizeLocales(resultado.data);
+      setLocales(localesSanitizados);
+    } else {
+      console.error('❌ Error obteniendo locales:', resultado.error);
+      // Aquí podrías mostrar un toast/notification al usuario
     }
-  };
+  } catch (error) {
+    console.error('❌ Error obteniendo locales:', error);
+  } finally {
+    setCargando(false);
+  }
+};
 
   const obtenerTextoEstado = (estado: string): string => {
     switch(estado) {
