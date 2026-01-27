@@ -1,10 +1,11 @@
-import { fetchLocales } from './utils/api';
 import { useState, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
-import { Music, Users, Home, Shield, Zap, X } from 'lucide-react';
+import { Users, Home } from 'lucide-react';
 import { sanitizeLocal, sanitizeLocales } from './utils/sanitize';
-
-import { Local, APIResponse } from './types';
+import { Local } from './types';
+import { fetchLocales } from './utils/api';
+import { Toast, useToast } from './components/Toast';
+import { Loading } from './components/Loading';
 
 const mapContainerStyle = {
   width: '100%',
@@ -72,12 +73,12 @@ const crearIconoPersonalizado = (tipo: string, estado: string): string => {
 };
 
 function App() {
-  
-const [locales, setLocales] = useState<Local[]>([]);
-const [localSeleccionado, setLocalSeleccionado] = useState<Local | 
-null>(null);
+  const [locales, setLocales] = useState<Local[]>([]);
+  const [localSeleccionado, setLocalSeleccionado] = useState<Local | null>(null);
   const [cargando, setCargando] = useState(true);
   const [modoEscuadron, setModoEscuadron] = useState(false);
+  const { toast, showToast, hideToast } = useToast();
+  
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
@@ -91,23 +92,23 @@ null>(null);
   }, []);
 
   const obtenerLocales = async () => {
-  try {
-    const resultado = await fetchLocales();
-    
-    if (resultado.success && resultado.data) {
-      // Sanitizar todos los locales antes de guardar en estado
-      const localesSanitizados = sanitizeLocales(resultado.data);
-      setLocales(localesSanitizados);
-    } else {
-      console.error('❌ Error obteniendo locales:', resultado.error);
-      // Aquí podrías mostrar un toast/notification al usuario
+    try {
+      const resultado = await fetchLocales();
+      
+      if (resultado.success && resultado.data) {
+        const localesSanitizados = sanitizeLocales(resultado.data);
+        setLocales(localesSanitizados);
+      } else {
+        console.error('❌ Error obteniendo locales:', resultado.error);
+        showToast('Error al cargar locales. Reintentando...', 'error');
+      }
+    } catch (error) {
+      console.error('❌ Error obteniendo locales:', error);
+      showToast('No se pudo conectar con el servidor', 'error');
+    } finally {
+      setCargando(false);
     }
-  } catch (error) {
-    console.error('❌ Error obteniendo locales:', error);
-  } finally {
-    setCargando(false);
-  }
-};
+  };
 
   const obtenerTextoEstado = (estado: string): string => {
     switch(estado) {
@@ -116,16 +117,6 @@ null>(null);
       case 'medio': return '🍹 TRANQUILO';
       case 'vacio': return '😴 VACÍO';
       default: return 'CERRADO';
-    }
-  };
-
-  const obtenerColorEstado = (estado: string): string => {
-    switch(estado) {
-      case 'fuego': return 'from-red-500 to-orange-500';
-      case 'caliente': return 'from-purple-500 to-pink-500';
-      case 'medio': return 'from-violet-500 to-purple-400';
-      case 'vacio': return 'from-gray-600 to-gray-500';
-      default: return 'from-gray-600 to-gray-500';
     }
   };
 
@@ -142,7 +133,6 @@ null>(null);
 
   const handleMarkerClick = (local: Local) => {
     console.log('🎯 Marker clicked:', local.nombre);
-    // 🛡️ SANITIZAR el local antes de mostrarlo en el modal
     const localSanitizado = sanitizeLocal(local);
     setLocalSeleccionado(localSanitizado);
   };
@@ -191,12 +181,7 @@ null>(null);
       {/* Map Container */}
       <div className="flex-1 relative">
         {!isLoaded ? (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center">
-              <div className="text-4xl mb-4">🌃</div>
-              <p className="text-lg font-bold">Cargando mapa...</p>
-            </div>
-          </div>
+          <Loading message="Cargando mapa de Google..." />
         ) : (
           <>
             <GoogleMap
@@ -262,19 +247,12 @@ null>(null);
               <span className="text-xs font-medium">Actualización cada 10s</span>
             </div>
 
-            {cargando && (
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-900/80 z-50">
-                <div className="text-center">
-                  <div className="text-4xl mb-4 animate-bounce">🌃</div>
-                  <p className="text-lg font-bold">Cargando mapa...</p>
-                </div>
-              </div>
-            )}
+            {cargando && <Loading message="Cargando locales..." />}
           </>
         )}
       </div>
 
-      {/* MODAL - Todo el contenido ya está sanitizado */}
+      {/* MODAL */}
       {localSeleccionado !== null && (
         <div 
           style={{
@@ -302,41 +280,34 @@ null>(null);
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Nombre - Ya sanitizado */}
             <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px', color: 'white' }}>
               {localSeleccionado.nombre}
             </h2>
             
-            {/* Tipo - Ya sanitizado */}
             <p style={{ color: '#9ca3af', marginBottom: '16px' }}>
               {obtenerTextoTipo(localSeleccionado.tipo)}
             </p>
             
-            {/* Capacidad */}
             <div style={{ fontSize: '32px', fontWeight: 'bold', color: '#a855f7', marginBottom: '16px' }}>
               {localSeleccionado.capacidad_actual}% de aforo
             </div>
             
-            {/* Estado */}
             <div style={{ color: 'white', marginBottom: '16px' }}>
               {obtenerTextoEstado(localSeleccionado.estado)}
             </div>
             
-            {/* Música - Ya sanitizado */}
             {localSeleccionado.musica_actual && (
               <div style={{ color: 'white', marginBottom: '8px' }}>
                 🎵 {localSeleccionado.musica_actual}
               </div>
             )}
             
-            {/* Música en vivo */}
             {localSeleccionado.tiene_musica_en_vivo && (
               <div style={{ color: '#a855f7', marginBottom: '8px', fontWeight: 'bold' }}>
                 🎤 Música en vivo AHORA
               </div>
             )}
             
-            {/* Promoción - Ya sanitizado (permite HTML básico) */}
             {localSeleccionado.promocion && (
               <div 
                 style={{ color: '#10b981', marginBottom: '8px' }}
@@ -344,21 +315,18 @@ null>(null);
               />
             )}
             
-            {/* Tiempo de espera */}
             {localSeleccionado.tiempo_espera > 0 && (
               <div style={{ color: '#f59e0b', marginBottom: '8px' }}>
                 ⏱️ Tiempo de espera: ~{localSeleccionado.tiempo_espera} min
               </div>
             )}
             
-            {/* Zona segura */}
             {localSeleccionado.es_zona_segura && (
               <div style={{ color: '#3b82f6', marginBottom: '8px' }}>
                 🛡️ Zona Segura Verificada
               </div>
             )}
             
-            {/* Botón cerrar */}
             <button
               onClick={() => setLocalSeleccionado(null)}
               style={{
@@ -378,6 +346,15 @@ null>(null);
             </button>
           </div>
         </div>
+      )}
+
+      {/* Toast notifications */}
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={hideToast}
+        />
       )}
     </div>
   );

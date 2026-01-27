@@ -3,13 +3,13 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { validateEnv } from './utils/env'
+import { ErrorBoundary } from './components/ErrorBoundary'
 
 // Validar variables de entorno al inicio
 try {
   validateEnv();
 } catch (error) {
   console.error('Error de configuración:', error);
-  // Mostrar mensaje de error al usuario
   document.getElementById('root')!.innerHTML = `
     <div style="
       display: flex;
@@ -46,6 +46,8 @@ faltante.
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 )
