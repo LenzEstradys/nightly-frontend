@@ -3,7 +3,7 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { Users, Home } from 'lucide-react';
 import { sanitizeLocal, sanitizeLocales } from './utils/sanitize';
 import { Local } from './types';
-import { fetchLocales } from './utils/api';
+import { fetchLocales } from './utils/apiClient';
 import { Toast, useToast } from './components/Toast';
 import { Loading } from './components/Loading';
 

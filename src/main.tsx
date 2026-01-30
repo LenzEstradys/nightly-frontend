@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import { validateEnv } from './utils/env'
+import { validateEnv } from './utils/envConfig';
 import { ErrorBoundary } from './components/ErrorBoundary'
 
 // Validar variables de entorno al inicio
