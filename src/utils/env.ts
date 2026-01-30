@@ -11,7 +11,7 @@ export function validateEnv(): void {
   });
 
   if (missing.length > 0) {
-    const errorMsg = `Missing required environment variables: ${missing.join(', ')}`;
+    const errorMsg = 'Missing required environment variables: ' + missing.join(', ');
     console.error(errorMsg);
     console.error('Check your .env file or Vercel configuration');
     throw new Error(errorMsg);
@@ -24,7 +24,7 @@ export function getEnv(key: string, required = true): string {
   const value = import.meta.env[key];
   
   if (required && (!value || value === 'undefined')) {
-    throw new Error(`Required environment variable not found: ${key}`);
+    throw new Error('Required environment variable not found: ' + key);
   }
   
   return value || '';
