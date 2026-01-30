@@ -1,6 +1,3 @@
-/**
- * Validar que todas las variables de entorno requeridas existan
- */
 export function validateEnv(): void {
   const required = [
     'VITE_API_URL',
@@ -14,26 +11,20 @@ export function validateEnv(): void {
   });
 
   if (missing.length > 0) {
-    const errorMsg = `❌ Faltan variables de entorno requeridas: 
-${missing.join(', ')}`;
+    const errorMsg = `Missing required environment variables: ${missing.join(', ')}`;
     console.error(errorMsg);
-    console.error('📝 Verifica tu archivo .env o configuración en 
-Vercel');
+    console.error('Check your .env file or Vercel configuration');
     throw new Error(errorMsg);
   }
 
-  console.log('✅ Variables de entorno validadas correctamente');
+  console.log('Environment variables validated successfully');
 }
 
-/**
- * Obtener variable de entorno con validación
- */
 export function getEnv(key: string, required = true): string {
   const value = import.meta.env[key];
   
   if (required && (!value || value === 'undefined')) {
-    throw new Error(`Variable de entorno requerida no encontrada: 
-${key}`);
+    throw new Error(`Required environment variable not found: ${key}`);
   }
   
   return value || '';
