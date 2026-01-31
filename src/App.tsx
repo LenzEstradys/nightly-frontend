@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { Users, Home } from 'lucide-react';
-import { sanitizeLocal, sanitizeLocales } from './utils/sanitize';
 import { Local } from './types';
 import { fetchLocales } from './utils/apiClient';
 import { Toast, useToast } from './components/Toast';
@@ -96,14 +95,13 @@ function App() {
       const resultado = await fetchLocales();
       
       if (resultado.success && resultado.data) {
-        const localesSanitizados = sanitizeLocales(resultado.data);
-        setLocales(localesSanitizados);
+        setLocales(resultado.data as Local[]);
       } else {
-        console.error('❌ Error obteniendo locales:', resultado.error);
+        console.error('Error obteniendo locales:', resultado.error);
         showToast('Error al cargar locales. Reintentando...', 'error');
       }
     } catch (error) {
-      console.error('❌ Error obteniendo locales:', error);
+      console.error('Error obteniendo locales:', error);
       showToast('No se pudo conectar con el servidor', 'error');
     } finally {
       setCargando(false);
@@ -132,14 +130,11 @@ function App() {
   };
 
   const handleMarkerClick = (local: Local) => {
-    console.log('🎯 Marker clicked:', local.nombre);
-    const localSanitizado = sanitizeLocal(local);
-    setLocalSeleccionado(localSanitizado);
+    setLocalSeleccionado(local);
   };
 
   return (
     <div className="h-screen bg-gray-900 text-white flex flex-col">
-      {/* Header */}
       <div className="bg-black/80 backdrop-blur-md border-b border-purple-500/30 p-4 z-10">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center gap-3">
@@ -178,7 +173,6 @@ function App() {
         </div>
       </div>
 
-      {/* Map Container */}
       <div className="flex-1 relative">
         {!isLoaded ? (
           <Loading message="Cargando mapa de Google..." />
@@ -209,7 +203,6 @@ function App() {
               ))}
             </GoogleMap>
 
-            {/* Legend */}
             <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md rounded-lg p-4 border border-purple-500/30 z-40">
               <h3 className="text-xs font-bold mb-2 text-gray-400">NIVELES DE AMBIENTE</h3>
               <div className="space-y-2">
@@ -241,7 +234,6 @@ function App() {
               </div>
             </div>
 
-            {/* Indicador de actualización */}
             <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-md rounded-lg px-3 py-2 border border-green-500/30 flex items-center gap-2 z-40">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
               <span className="text-xs font-medium">Actualización cada 10s</span>
@@ -252,7 +244,6 @@ function App() {
         )}
       </div>
 
-      {/* MODAL */}
       {localSeleccionado !== null && (
         <div 
           style={{
@@ -309,10 +300,9 @@ function App() {
             )}
             
             {localSeleccionado.promocion && (
-              <div 
-                style={{ color: '#10b981', marginBottom: '8px' }}
-                dangerouslySetInnerHTML={{ __html: `⚡ ${localSeleccionado.promocion}` }}
-              />
+              <div style={{ color: '#10b981', marginBottom: '8px' }}>
+                ⚡ {localSeleccionado.promocion}
+              </div>
             )}
             
             {localSeleccionado.tiempo_espera > 0 && (
@@ -348,7 +338,6 @@ function App() {
         </div>
       )}
 
-      {/* Toast notifications */}
       {toast && (
         <Toast
           message={toast.message}
