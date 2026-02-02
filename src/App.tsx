@@ -296,62 +296,63 @@ function App() {
                 position: 'relative',
                 maxWidth: window.innerWidth >= 768 ? '512px' : '100%',
                 maxHeight: window.innerWidth >= 768 ? '85vh' : '80vh',
-                borderWidth: window.innerWidth >= 768 ? '3px' : '4px 0 0 0',
+                borderWidth: window.innerWidth >= 768 ? '1px' : '2px 0 0 0',
                 borderRadius: window.innerWidth >= 768 ? '24px' : '32px 32px 0 0',
-                background: 'linear-gradient(145deg, #7c3aed 0%, #a855f7 50%, #c026d3 100%)',
-                borderColor: '#fbbf24',
-                boxShadow: '0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 15px 40px -10px rgba(251, 191, 36, 0.6), 0 0 0 2px rgba(251, 191, 36, 0.4)',
+                background: 'linear-gradient(165deg, #1e293b 0%, #0f172a 100%)',
+                borderColor: 'rgba(251, 191, 36, 0.3)',
+                boxShadow: '0 25px 60px -10px rgba(0, 0, 0, 0.95), 0 10px 30px -5px rgba(251, 191, 36, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)',
               }}
               onClick={(e) => e.stopPropagation()}
             >
             {/* Modal Header */}
-            <div className="sticky top-0 backdrop-blur-xl border-b border-white/20 p-4 md:p-6 flex items-start justify-between z-10"
+            <div className="sticky top-0 backdrop-blur-xl border-b p-5 md:p-6 flex items-start justify-between z-10"
               style={{
-                background: 'rgba(0, 0, 0, 0.3)',
+                background: 'rgba(15, 23, 42, 0.95)',
+                borderColor: 'rgba(251, 191, 36, 0.15)',
               }}
             >
               <div className="flex-1 pr-8">
-                <h2 className="text-2xl md:text-3xl font-black text-white mb-1 font-heading tracking-tight leading-tight drop-shadow-lg">
+                <h2 className="text-2xl md:text-3xl font-black text-white mb-2 font-heading tracking-tight leading-tight">
                   {localSeleccionado.nombre}
                 </h2>
-                <p className="text-sm md:text-base text-yellow-300 font-bold tracking-wide drop-shadow-md">
+                <p className="text-sm md:text-base font-semibold tracking-wide"
+                  style={{
+                    color: '#fbbf24',
+                  }}
+                >
                   {obtenerTextoTipo(localSeleccionado.tipo)}
                 </p>
               </div>
               <button
                 onClick={() => setLocalSeleccionado(null)}
-                className="p-2.5 hover:bg-white/20 rounded-full transition-all duration-200 flex-shrink-0 group"
+                className="p-2.5 rounded-full transition-all duration-200 flex-shrink-0 group hover:scale-110"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.15)',
+                  background: 'rgba(251, 191, 36, 0.1)',
+                  border: '1px solid rgba(251, 191, 36, 0.2)',
                 }}
               >
-                <X size={26} className="text-white drop-shadow-lg" strokeWidth={3} />
+                <X size={22} style={{ color: '#fbbf24' }} strokeWidth={2.5} />
               </button>
             </div>
 
             {/* Modal Content */}
-            <div className="p-4 md:p-6 space-y-4 md:space-y-5">
+            <div className="p-5 md:p-6 space-y-4">
               {/* Capacidad */}
-              <div className="rounded-2xl p-5 md:p-7 shadow-xl"
+              <div className="rounded-2xl p-6 md:p-8 relative overflow-hidden"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.95)',
+                  background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(251, 191, 36, 0.03) 100%)',
+                  border: '1px solid rgba(251, 191, 36, 0.2)',
                 }}
               >
-                <div className="text-5xl md:text-7xl font-black mb-2 tracking-tighter font-heading"
+                <div className="text-6xl md:text-7xl font-black mb-3 tracking-tighter font-heading"
                   style={{
-                    background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #f59e0b 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
+                    color: '#fbbf24',
+                    textShadow: '0 4px 20px rgba(251, 191, 36, 0.3)',
                   }}
                 >
                   {localSeleccionado.capacidad_actual}%
                 </div>
-                <div className="text-xl md:text-2xl font-black tracking-wide"
-                  style={{
-                    color: '#7c3aed',
-                  }}
-                >
+                <div className="text-lg md:text-xl font-bold tracking-wide text-white">
                   {obtenerTextoEstado(localSeleccionado.estado)}
                 </div>
               </div>
@@ -359,15 +360,16 @@ function App() {
               {/* Detalles */}
               <div className="space-y-3">
                 {localSeleccionado.musica_actual && (
-                  <div className="flex items-start gap-3 p-3 rounded-xl shadow-md"
+                  <div className="flex items-start gap-3 p-4 rounded-xl transition-all hover:scale-[1.02]"
                     style={{
-                      background: 'rgba(255, 255, 255, 0.9)',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
                     }}
                   >
-                    <Music size={22} className="flex-shrink-0 mt-0.5" style={{ color: '#7c3aed' }} />
+                    <Music size={20} className="flex-shrink-0 mt-0.5" style={{ color: '#fbbf24' }} />
                     <div>
-                      <div className="text-xs font-bold mb-0.5" style={{ color: '#6b7280' }}>Música</div>
-                      <div className="text-sm md:text-base font-bold" style={{ color: '#111827' }}>
+                      <div className="text-xs font-semibold mb-1" style={{ color: '#94a3b8' }}>Música</div>
+                      <div className="text-sm md:text-base font-bold text-white">
                         {localSeleccionado.musica_actual}
                       </div>
                     </div>
@@ -375,30 +377,30 @@ function App() {
                 )}
                 
                 {localSeleccionado.tiene_musica_en_vivo && (
-                  <div className="flex items-center gap-2 p-3 rounded-xl border-2 shadow-md"
+                  <div className="flex items-center gap-3 p-4 rounded-xl transition-all hover:scale-[1.02]"
                     style={{
-                      background: 'rgba(251, 191, 36, 0.95)',
-                      borderColor: '#f59e0b',
+                      background: 'rgba(251, 191, 36, 0.15)',
+                      border: '1px solid rgba(251, 191, 36, 0.3)',
                     }}
                   >
-                    <Music size={20} style={{ color: '#78350f' }} />
-                    <span className="text-sm md:text-base font-black" style={{ color: '#78350f' }}>
+                    <Music size={20} style={{ color: '#fbbf24' }} />
+                    <span className="text-sm md:text-base font-bold" style={{ color: '#fbbf24' }}>
                       Música en vivo AHORA
                     </span>
                   </div>
                 )}
                 
                 {localSeleccionado.promocion && (
-                  <div className="flex items-start gap-3 p-3 rounded-xl border-2 shadow-md"
+                  <div className="flex items-start gap-3 p-4 rounded-xl transition-all hover:scale-[1.02]"
                     style={{
-                      background: 'rgba(34, 197, 94, 0.95)',
-                      borderColor: '#16a34a',
+                      background: 'rgba(34, 197, 94, 0.1)',
+                      border: '1px solid rgba(34, 197, 94, 0.3)',
                     }}
                   >
-                    <Zap size={22} className="flex-shrink-0 mt-0.5" style={{ color: '#14532d' }} />
+                    <Zap size={20} className="flex-shrink-0 mt-0.5" style={{ color: '#22c55e' }} />
                     <div>
-                      <div className="text-xs font-bold mb-0.5" style={{ color: '#14532d' }}>Promoción</div>
-                      <div className="text-sm md:text-base font-bold" style={{ color: '#14532d' }}>
+                      <div className="text-xs font-semibold mb-1" style={{ color: '#94a3b8' }}>Promoción</div>
+                      <div className="text-sm md:text-base font-bold" style={{ color: '#22c55e' }}>
                         {localSeleccionado.promocion}
                       </div>
                     </div>
@@ -406,28 +408,28 @@ function App() {
                 )}
                 
                 {localSeleccionado.tiempo_espera > 0 && (
-                  <div className="flex items-center gap-3 p-3 rounded-xl border-2 shadow-md"
+                  <div className="flex items-center gap-3 p-4 rounded-xl transition-all hover:scale-[1.02]"
                     style={{
-                      background: 'rgba(249, 115, 22, 0.95)',
-                      borderColor: '#ea580c',
+                      background: 'rgba(249, 115, 22, 0.1)',
+                      border: '1px solid rgba(249, 115, 22, 0.3)',
                     }}
                   >
-                    <Clock size={20} style={{ color: '#7c2d12' }} />
-                    <span className="text-sm md:text-base font-bold" style={{ color: '#7c2d12' }}>
+                    <Clock size={20} style={{ color: '#f97316' }} />
+                    <span className="text-sm md:text-base font-bold" style={{ color: '#f97316' }}>
                       Espera: ~{localSeleccionado.tiempo_espera} min
                     </span>
                   </div>
                 )}
                 
                 {localSeleccionado.es_zona_segura && (
-                  <div className="flex items-center gap-2 p-3 rounded-xl border-2 shadow-md"
+                  <div className="flex items-center gap-3 p-4 rounded-xl transition-all hover:scale-[1.02]"
                     style={{
-                      background: 'rgba(59, 130, 246, 0.95)',
-                      borderColor: '#2563eb',
+                      background: 'rgba(59, 130, 246, 0.1)',
+                      border: '1px solid rgba(59, 130, 246, 0.3)',
                     }}
                   >
-                    <Shield size={20} style={{ color: '#1e3a8a' }} />
-                    <span className="text-sm md:text-base font-bold" style={{ color: '#1e3a8a' }}>
+                    <Shield size={20} style={{ color: '#3b82f6' }} />
+                    <span className="text-sm md:text-base font-bold" style={{ color: '#3b82f6' }}>
                       Zona Segura Verificada
                     </span>
                   </div>
@@ -439,15 +441,15 @@ function App() {
                 onClick={() => {
                   window.open(`https://www.google.com/maps/dir/?api=1&destination=${localSeleccionado.latitud},${localSeleccionado.longitud}`, '_blank');
                 }}
-                className="w-full py-4 md:py-5 rounded-2xl font-black text-lg md:text-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-2xl hover:scale-[1.03] active:scale-[0.97] font-heading tracking-wide"
+                className="w-full py-4 md:py-5 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] font-heading tracking-wide mt-6"
                 style={{
                   background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                  color: '#78350f',
-                  border: '3px solid #d97706',
+                  color: '#1e293b',
+                  boxShadow: '0 10px 30px -10px rgba(251, 191, 36, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)',
                 }}
               >
-                <Home size={26} strokeWidth={3} />
-                LLÉVAME AQUÍ
+                <Home size={22} strokeWidth={2.5} />
+                Llévame aquí
               </button>
             </div>
           </div>
