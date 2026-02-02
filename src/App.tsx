@@ -373,8 +373,8 @@ function App() {
                   >
                     <Music size={20} className="flex-shrink-0 mt-0.5" style={{ color: '#fbbf24' }} />
                     <div>
-                      <div className="text-xs font-semibold mb-1" style={{ color: '#94a3b8' }}>Música</div>
-                      <div className="text-sm md:text-base font-bold text-white">
+                      <div className="text-xs font-semibold mb-1" style={{ color: '#fbbf24' }}>Música</div>
+                      <div className="text-sm md:text-base font-bold" style={{ color: '#ffffff' }}>
                         {localSeleccionado.musica_actual}
                       </div>
                     </div>
@@ -398,14 +398,14 @@ function App() {
                 {localSeleccionado.promocion && (
                   <div className="flex items-start gap-3 p-4 rounded-xl transition-all hover:scale-[1.02]"
                     style={{
-                      background: 'rgba(34, 197, 94, 0.1)',
+                      background: 'rgba(34, 197, 94, 0.15)',
                       border: '1px solid rgba(34, 197, 94, 0.3)',
                     }}
                   >
                     <Zap size={20} className="flex-shrink-0 mt-0.5" style={{ color: '#22c55e' }} />
                     <div>
-                      <div className="text-xs font-semibold mb-1" style={{ color: '#94a3b8' }}>Promoción</div>
-                      <div className="text-sm md:text-base font-bold" style={{ color: '#22c55e' }}>
+                      <div className="text-xs font-semibold mb-1" style={{ color: '#86efac' }}>Promoción</div>
+                      <div className="text-sm md:text-base font-bold" style={{ color: '#ffffff' }}>
                         {localSeleccionado.promocion}
                       </div>
                     </div>
@@ -415,12 +415,12 @@ function App() {
                 {localSeleccionado.tiempo_espera > 0 && (
                   <div className="flex items-center gap-3 p-4 rounded-xl transition-all hover:scale-[1.02]"
                     style={{
-                      background: 'rgba(249, 115, 22, 0.1)',
+                      background: 'rgba(249, 115, 22, 0.15)',
                       border: '1px solid rgba(249, 115, 22, 0.3)',
                     }}
                   >
-                    <Clock size={20} style={{ color: '#f97316' }} />
-                    <span className="text-sm md:text-base font-bold" style={{ color: '#f97316' }}>
+                    <Clock size={20} style={{ color: '#fb923c' }} />
+                    <span className="text-sm md:text-base font-bold" style={{ color: '#fb923c' }}>
                       Espera: ~{localSeleccionado.tiempo_espera} min
                     </span>
                   </div>
@@ -429,62 +429,17 @@ function App() {
                 {localSeleccionado.es_zona_segura && (
                   <div className="flex items-center gap-3 p-4 rounded-xl transition-all hover:scale-[1.02]"
                     style={{
-                      background: 'rgba(59, 130, 246, 0.1)',
+                      background: 'rgba(59, 130, 246, 0.15)',
                       border: '1px solid rgba(59, 130, 246, 0.3)',
                     }}
                   >
-                    <Shield size={20} style={{ color: '#3b82f6' }} />
-                    <span className="text-sm md:text-base font-bold" style={{ color: '#3b82f6' }}>
+                    <Shield size={20} style={{ color: '#60a5fa' }} />
+                    <span className="text-sm md:text-base font-bold" style={{ color: '#93c5fd' }}>
                       Zona Segura Verificada
                     </span>
                   </div>
                 )}
               </div>
-
-              {/* Sección de Eventos (si existen) - NUEVO */}
-              {(localSeleccionado.promocion || localSeleccionado.tiene_musica_en_vivo) && (
-                <div className="mt-6 rounded-xl p-5" 
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%)',
-                    border: '1px solid rgba(251, 191, 36, 0.25)',
-                  }}
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <span style={{ fontSize: '20px' }}>🎉</span>
-                    <h3 className="font-bold text-lg" style={{ color: '#fbbf24' }}>
-                      Eventos y Promociones
-                    </h3>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    {localSeleccionado.tiene_musica_en_vivo && (
-                      <div className="flex items-start gap-2">
-                        <span style={{ fontSize: '16px' }}>🎤</span>
-                        <div>
-                          <p className="text-sm font-bold text-white">Música en vivo</p>
-                          <p className="text-xs" style={{ color: '#94a3b8' }}>
-                            {localSeleccionado.musica_actual || 'En este momento'}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {localSeleccionado.promocion && (
-                      <div className="flex items-start gap-2">
-                        <span style={{ fontSize: '16px' }}>💰</span>
-                        <div>
-                          <p className="text-sm font-bold" style={{ color: '#22c55e' }}>
-                            {localSeleccionado.promocion}
-                          </p>
-                          <p className="text-xs" style={{ color: '#94a3b8' }}>
-                            Promoción especial
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
 
               {/* Botón Llévame */}
               <button
