@@ -307,12 +307,17 @@ function App() {
             {/* Modal Header */}
             <div className="sticky top-0 backdrop-blur-xl border-b p-5 md:p-6 flex items-start justify-between z-10"
               style={{
-                background: 'rgba(15, 23, 42, 0.95)',
+                background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(15, 23, 42, 0.95) 100%)',
                 borderColor: 'rgba(251, 191, 36, 0.15)',
               }}
             >
               <div className="flex-1 pr-8">
-                <h2 className="text-2xl md:text-3xl font-black text-white mb-2 font-heading tracking-tight leading-tight">
+                <h2 className="text-2xl md:text-3xl font-black mb-2 font-heading tracking-tight leading-tight"
+                  style={{
+                    color: '#ffffff',
+                    textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)',
+                  }}
+                >
                   {localSeleccionado.nombre}
                 </h2>
                 <p className="text-sm md:text-base font-semibold tracking-wide"
@@ -436,12 +441,57 @@ function App() {
                 )}
               </div>
 
+              {/* Sección de Eventos (si existen) - NUEVO */}
+              {(localSeleccionado.promocion || localSeleccionado.tiene_musica_en_vivo) && (
+                <div className="mt-6 rounded-xl p-5" 
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%)',
+                    border: '1px solid rgba(251, 191, 36, 0.25)',
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <span style={{ fontSize: '20px' }}>🎉</span>
+                    <h3 className="font-bold text-lg" style={{ color: '#fbbf24' }}>
+                      Eventos y Promociones
+                    </h3>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    {localSeleccionado.tiene_musica_en_vivo && (
+                      <div className="flex items-start gap-2">
+                        <span style={{ fontSize: '16px' }}>🎤</span>
+                        <div>
+                          <p className="text-sm font-bold text-white">Música en vivo</p>
+                          <p className="text-xs" style={{ color: '#94a3b8' }}>
+                            {localSeleccionado.musica_actual || 'En este momento'}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {localSeleccionado.promocion && (
+                      <div className="flex items-start gap-2">
+                        <span style={{ fontSize: '16px' }}>💰</span>
+                        <div>
+                          <p className="text-sm font-bold" style={{ color: '#22c55e' }}>
+                            {localSeleccionado.promocion}
+                          </p>
+                          <p className="text-xs" style={{ color: '#94a3b8' }}>
+                            Promoción especial
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* Botón Llévame */}
               <button
                 onClick={() => {
                   window.open(`https://www.google.com/maps/dir/?api=1&destination=${localSeleccionado.latitud},${localSeleccionado.longitud}`, '_blank');
                 }}
-                className="w-full py-4 md:py-5 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] font-heading tracking-wide mt-6"
+                className="w-full py-4 md:py-5 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] font-heading tracking-wide mt-5"
                 style={{
                   background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
                   color: '#1e293b',
