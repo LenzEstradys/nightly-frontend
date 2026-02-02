@@ -143,10 +143,10 @@ function App() {
           <div className="flex items-center gap-2 md:gap-3">
             <div className="text-2xl md:text-3xl">🌃</div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent font-heading tracking-tight">
+              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
                 Nightly
               </h1>
-              <p className="text-[10px] md:text-xs text-gray-400 flex items-center gap-1 md:gap-2 font-medium">
+              <p className="text-[10px] md:text-xs text-gray-400 flex items-center gap-1 md:gap-2">
                 <span className="hidden sm:inline">La Paz •</span>
                 <span>{new Date().toLocaleTimeString('es-BO', { hour: '2-digit', minute: '2-digit' })}</span>
                 <span className="hidden md:flex items-center gap-1">
@@ -254,104 +254,46 @@ function App() {
         )}
       </div>
 
-      {/* MODAL - Premium Design */}
+      {/* MODAL - Mobile Optimized */}
       {localSeleccionado !== null && (
-        <>
-          {/* Backdrop - MÁS CLARO para ver el mapa */}
+        <div 
+          className="fixed inset-0 flex items-end md:items-center justify-center p-0 md:p-4"
+style={{
+  backgroundColor: 'rgba(0, 0, 0, 0.85)',
+  backdropFilter: 'blur(8px)',
+  zIndex: 99999
+}}
+        >
           <div 
-            className="fixed inset-0 z-[9998]"
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.45)',
-              backdropFilter: 'blur(4px)',
-              WebkitBackdropFilter: 'blur(4px)',
-            }}
-            onClick={() => setLocalSeleccionado(null)}
-          />
-          
-          {/* Modal Container */}
-          <div 
-            className="fixed inset-0 z-[9999]"
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              pointerEvents: 'none',
-              display: 'flex',
-              alignItems: window.innerWidth >= 768 ? 'center' : 'flex-end',
-              justifyContent: 'center',
-              padding: window.innerWidth >= 768 ? '16px' : '0',
-            }}
+            className="bg-gray-900 rounded-t-3xl md:rounded-2xl w-full md:max-w-lg md:w-full max-h-[85vh] md:max-h-[90vh] overflow-y-auto border-t-2 md:border-2 border-purple-500 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
           >
-            <div 
-              className="w-full overflow-y-auto shadow-dramatic animate-fade-in-modal"
-              style={{
-                pointerEvents: 'auto',
-                position: 'relative',
-                maxWidth: window.innerWidth >= 768 ? '512px' : '100%',
-                maxHeight: window.innerWidth >= 768 ? '85vh' : '80vh',
-                borderWidth: window.innerWidth >= 768 ? '3px' : '4px 0 0 0',
-                borderRadius: window.innerWidth >= 768 ? '24px' : '32px 32px 0 0',
-                background: 'linear-gradient(145deg, #7c3aed 0%, #a855f7 50%, #c026d3 100%)',
-                borderColor: '#fbbf24',
-                boxShadow: '0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 15px 40px -10px rgba(251, 191, 36, 0.6), 0 0 0 2px rgba(251, 191, 36, 0.4)',
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
             {/* Modal Header */}
-            <div className="sticky top-0 backdrop-blur-xl border-b border-white/20 p-4 md:p-6 flex items-start justify-between z-10"
-              style={{
-                background: 'rgba(0, 0, 0, 0.3)',
-              }}
-            >
-              <div className="flex-1 pr-8">
-                <h2 className="text-2xl md:text-3xl font-black text-white mb-1 font-heading tracking-tight leading-tight drop-shadow-lg">
+            <div className="sticky top-0 bg-gray-900/95 backdrop-blur-md border-b border-gray-800 p-4 md:p-6 flex items-start justify-between">
+              <div className="flex-1">
+                <h2 className="text-xl md:text-2xl font-bold text-white mb-1">
                   {localSeleccionado.nombre}
                 </h2>
-                <p className="text-sm md:text-base text-yellow-300 font-bold tracking-wide drop-shadow-md">
+                <p className="text-sm md:text-base text-gray-400">
                   {obtenerTextoTipo(localSeleccionado.tipo)}
                 </p>
               </div>
               <button
                 onClick={() => setLocalSeleccionado(null)}
-                className="p-2.5 hover:bg-white/20 rounded-full transition-all duration-200 flex-shrink-0 group"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.15)',
-                }}
+                className="p-2 hover:bg-gray-800 rounded-full transition-colors flex-shrink-0"
               >
-                <X size={26} className="text-white drop-shadow-lg" strokeWidth={3} />
+                <X size={24} className="text-gray-400" />
               </button>
             </div>
 
             {/* Modal Content */}
             <div className="p-4 md:p-6 space-y-4 md:space-y-5">
               {/* Capacidad */}
-              <div className="rounded-2xl p-5 md:p-7 shadow-xl"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.95)',
-                }}
-              >
-                <div className="text-5xl md:text-7xl font-black mb-2 tracking-tighter font-heading"
-                  style={{
-                    background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #f59e0b 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}
-                >
+              <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl p-4 md:p-6 border border-purple-500/30">
+                <div className="text-4xl md:text-5xl font-bold text-purple-400 mb-2">
                   {localSeleccionado.capacidad_actual}%
                 </div>
-                <div className="text-xl md:text-2xl font-black tracking-wide"
-                  style={{
-                    color: '#7c3aed',
-                  }}
-                >
+                <div className="text-base md:text-lg text-white font-medium">
                   {obtenerTextoEstado(localSeleccionado.estado)}
                 </div>
               </div>
@@ -359,77 +301,43 @@ function App() {
               {/* Detalles */}
               <div className="space-y-3">
                 {localSeleccionado.musica_actual && (
-                  <div className="flex items-start gap-3 p-3 rounded-xl shadow-md"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.9)',
-                    }}
-                  >
-                    <Music size={22} className="flex-shrink-0 mt-0.5" style={{ color: '#7c3aed' }} />
+                  <div className="flex items-start gap-3 p-3 bg-gray-800/50 rounded-lg">
+                    <Music size={20} className="text-purple-400 flex-shrink-0 mt-0.5" />
                     <div>
-                      <div className="text-xs font-bold mb-0.5" style={{ color: '#6b7280' }}>Música</div>
-                      <div className="text-sm md:text-base font-bold" style={{ color: '#111827' }}>
-                        {localSeleccionado.musica_actual}
-                      </div>
+                      <div className="text-xs text-gray-400 mb-0.5">Música</div>
+                      <div className="text-sm md:text-base text-white">{localSeleccionado.musica_actual}</div>
                     </div>
                   </div>
                 )}
                 
                 {localSeleccionado.tiene_musica_en_vivo && (
-                  <div className="flex items-center gap-2 p-3 rounded-xl border-2 shadow-md"
-                    style={{
-                      background: 'rgba(251, 191, 36, 0.95)',
-                      borderColor: '#f59e0b',
-                    }}
-                  >
-                    <Music size={20} style={{ color: '#78350f' }} />
-                    <span className="text-sm md:text-base font-black" style={{ color: '#78350f' }}>
-                      Música en vivo AHORA
-                    </span>
+                  <div className="flex items-center gap-2 p-3 bg-purple-600/20 rounded-lg border border-purple-500/30">
+                    <Music size={18} className="text-purple-400" />
+                    <span className="text-sm md:text-base font-medium text-purple-300">Música en vivo AHORA</span>
                   </div>
                 )}
                 
                 {localSeleccionado.promocion && (
-                  <div className="flex items-start gap-3 p-3 rounded-xl border-2 shadow-md"
-                    style={{
-                      background: 'rgba(34, 197, 94, 0.95)',
-                      borderColor: '#16a34a',
-                    }}
-                  >
-                    <Zap size={22} className="flex-shrink-0 mt-0.5" style={{ color: '#14532d' }} />
+                  <div className="flex items-start gap-3 p-3 bg-green-600/20 rounded-lg border border-green-500/30">
+                    <Zap size={20} className="text-green-400 flex-shrink-0 mt-0.5" />
                     <div>
-                      <div className="text-xs font-bold mb-0.5" style={{ color: '#14532d' }}>Promoción</div>
-                      <div className="text-sm md:text-base font-bold" style={{ color: '#14532d' }}>
-                        {localSeleccionado.promocion}
-                      </div>
+                      <div className="text-xs text-gray-400 mb-0.5">Promoción</div>
+                      <div className="text-sm md:text-base text-green-300">{localSeleccionado.promocion}</div>
                     </div>
                   </div>
                 )}
                 
                 {localSeleccionado.tiempo_espera > 0 && (
-                  <div className="flex items-center gap-3 p-3 rounded-xl border-2 shadow-md"
-                    style={{
-                      background: 'rgba(249, 115, 22, 0.95)',
-                      borderColor: '#ea580c',
-                    }}
-                  >
-                    <Clock size={20} style={{ color: '#7c2d12' }} />
-                    <span className="text-sm md:text-base font-bold" style={{ color: '#7c2d12' }}>
-                      Espera: ~{localSeleccionado.tiempo_espera} min
-                    </span>
+                  <div className="flex items-center gap-3 p-3 bg-orange-600/20 rounded-lg border border-orange-500/30">
+                    <Clock size={18} className="text-orange-400" />
+                    <span className="text-sm md:text-base text-orange-300">Espera: ~{localSeleccionado.tiempo_espera} min</span>
                   </div>
                 )}
                 
                 {localSeleccionado.es_zona_segura && (
-                  <div className="flex items-center gap-2 p-3 rounded-xl border-2 shadow-md"
-                    style={{
-                      background: 'rgba(59, 130, 246, 0.95)',
-                      borderColor: '#2563eb',
-                    }}
-                  >
-                    <Shield size={20} style={{ color: '#1e3a8a' }} />
-                    <span className="text-sm md:text-base font-bold" style={{ color: '#1e3a8a' }}>
-                      Zona Segura Verificada
-                    </span>
+                  <div className="flex items-center gap-2 p-3 bg-blue-600/20 rounded-lg border border-blue-500/30">
+                    <Shield size={18} className="text-blue-400" />
+                    <span className="text-sm md:text-base text-blue-300">Zona Segura Verificada</span>
                   </div>
                 )}
               </div>
@@ -439,20 +347,14 @@ function App() {
                 onClick={() => {
                   window.open(`https://www.google.com/maps/dir/?api=1&destination=${localSeleccionado.latitud},${localSeleccionado.longitud}`, '_blank');
                 }}
-                className="w-full py-4 md:py-5 rounded-2xl font-black text-lg md:text-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-2xl hover:scale-[1.03] active:scale-[0.97] font-heading tracking-wide"
-                style={{
-                  background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                  color: '#78350f',
-                  border: '3px solid #d97706',
-                }}
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 md:py-4 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-2 transition-all shadow-lg"
               >
-                <Home size={26} strokeWidth={3} />
-                LLÉVAME AQUÍ
+                <Home size={20} />
+                Llévame aquí
               </button>
             </div>
           </div>
         </div>
-        </>
       )}
 
       {/* Toast notifications */}

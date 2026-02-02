@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/app_old.tsx","./src/main.tsx","./src/supabase.ts","./src/vite-env.d.ts","./src/components/errorboundary.tsx","./src/components/loading.tsx","./src/components/nightlylogo.tsx","./src/components/toast.tsx","./src/types/index.ts","./src/utils/apiclient.ts","./src/utils/envconfig.ts","./src/utils/sanitize.ts"],"version":"5.9.3"}
