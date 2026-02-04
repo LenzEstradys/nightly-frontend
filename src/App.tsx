@@ -169,12 +169,7 @@ function App() {
               <Users size={16} className="md:w-5 md:h-5" />
               <span className="hidden sm:inline font-medium">Squad</span>
             </button>
-            <button 
-              onClick={() => setMostrarLeyenda(!mostrarLeyenda)}
-              className="px-2 md:px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg flex items-center gap-1 md:gap-2 transition-all text-xs md:text-sm md:hidden"
-            >
-              <MapPin size={16} />
-            </button>
+           
           </div>
         </div>
       </div>
@@ -210,38 +205,7 @@ function App() {
               ))}
             </GoogleMap>
 
-            {/* Legend - Desktop & Mobile Toggle */}
-            <div className={`absolute bottom-4 left-4 bg-black/90 backdrop-blur-md rounded-xl p-3 md:p-4 border border-purple-500/30 z-40 transition-all ${
-              mostrarLeyenda ? 'block' : 'hidden md:block'
-            } max-w-[280px]`}>
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-xs md:text-sm font-bold text-gray-300">NIVELES</h3>
-                <button 
-                  onClick={() => setMostrarLeyenda(false)}
-                  className="md:hidden text-gray-400 hover:text-white"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-              <div className="space-y-1.5 md:space-y-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-gradient-to-r from-red-500 to-orange-500 flex-shrink-0"></div>
-                  <span className="text-[10px] md:text-xs">A Reventar (80%+)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex-shrink-0"></div>
-                  <span className="text-[10px] md:text-xs">Ambiente Bueno (50-80%)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-gradient-to-r from-violet-500 to-purple-400 flex-shrink-0"></div>
-                  <span className="text-[10px] md:text-xs">Tranquilo (20-50%)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-gradient-to-r from-gray-600 to-gray-500 flex-shrink-0"></div>
-                  <span className="text-[10px] md:text-xs">Vacío (&lt;20%)</span>
-                </div>
-              </div>
-            </div>
+        
 
             {/* Update Indicator - Repositioned for mobile */}
             <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-black/90 backdrop-blur-md rounded-lg px-2 py-1.5 md:px-3 md:py-2 border border-green-500/30 flex items-center gap-1.5 md:gap-2 z-40">
@@ -357,7 +321,7 @@ function App() {
                 >
                   {localSeleccionado.capacidad_actual}%
                 </div>
-                <div className="text-lg md:text-xl font-bold tracking-wide text-white">
+                <div className="text-lg md:text-xl font-bold tracking-wide" style={{ color: '#ffffff' }}>
                   {obtenerTextoEstado(localSeleccionado.estado)}
                 </div>
               </div>
