@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { Users, Home, X, MapPin, Clock, Music, Zap, Shield } from 'lucide-react';
-import { Local } from './types';
+import type { Local } from '@nightly/shared';
+import { 
+  obtenerTextoEstado, 
+  obtenerTextoTipo,
+  obtenerColorHexEstado,
+  obtenerEmojiTipo 
+} from '@nightly/shared/utils';
 import { fetchLocales } from './utils/apiClient';
 import { Toast, useToast } from './components/Toast';
 import { Loading } from './components/Loading';
@@ -33,23 +39,8 @@ const mapOptions = {
 };
 
 const crearIconoPersonalizado = (tipo: string, estado: string): string => {
-  const colores: Record<string, string> = {
-    'fuego': '#ef4444',
-    'caliente': '#a855f7',
-    'medio': '#8b5cf6',
-    'vacio': '#6b7280'
-  };
-
-  const iconos: Record<string, string> = {
-    'bar': '🍺',
-    'club': '🎵',
-    'discoteca': '💃',
-    'pub': '🍻',
-    'restaurante': '🍴'
-  };
-
-  const color = colores[estado] || '#6b7280';
-  const emoji = iconos[tipo] || '📍';
+  const color = obtenerColorHexEstado(estado as any);
+  const emoji = obtenerEmojiTipo(tipo as any);
 
   const svg = `
     <svg width="60" height="80" xmlns="http://www.w3.org/2000/svg">
@@ -110,26 +101,7 @@ function App() {
     }
   };
 
-  const obtenerTextoEstado = (estado: string): string => {
-    switch(estado) {
-      case 'fuego': return '🔥 A REVENTAR';
-      case 'caliente': return '🎉 AMBIENTE BUENO';
-      case 'medio': return '🍹 TRANQUILO';
-      case 'vacio': return '😴 VACÍO';
-      default: return 'CERRADO';
-    }
-  };
 
-  const obtenerTextoTipo = (tipo: string): string => {
-    const tipos: Record<string, string> = {
-      'bar': '🍺 Bar',
-      'club': '🎵 Club',
-      'discoteca': '💃 Discoteca',
-      'pub': '🍻 Pub',
-      'restaurante': '🍴 Restaurante'
-    };
-    return tipos[tipo] || tipo;
-  };
 
   const handleMarkerClick = (local: Local) => {
     setLocalSeleccionado(local);

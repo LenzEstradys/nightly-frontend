@@ -1,7 +1,26 @@
 // ============================================
-// TIPOS PRINCIPALES DE LA APLICACIÓN
+// IMPORTAR TIPOS BASE DESDE SHARED
+// ============================================
+export type {
+  Local as LocalBase,
+  TipoLocal,
+  EstadoLocal,
+  RolUsuario,
+  Perfil,
+  ApiResponse,
+  Coordenadas,
+  CodigoInvitacion,
+  SuperAdmin,
+  Auditoria,
+  LocalCreateDTO,
+  LocalUpdateDTO,
+} from '@nightly/shared';
+
+// ============================================
+// EXTENDER TIPOS PARA FRONTEND
 // ============================================
 
+// Local con campos adicionales del frontend
 export interface Local {
   id: string;
   nombre: string;
@@ -16,8 +35,8 @@ export interface Local {
   capacidad_maxima?: number;
   
   // Información adicional
-  musica_actual?: string;
-  promocion?: string;
+  musica_actual?: string | null;
+  promocion?: string | null;
   tiempo_espera: number;
   tiene_musica_en_vivo: boolean;
   es_zona_segura: boolean;
@@ -37,10 +56,11 @@ export interface Local {
   // Metadata
   activo: boolean;
   verificado?: boolean;
-  codigo_invitacion?: string;
+  codigo_invitacion?: string | null;
   fecha_creacion?: string;
   fecha_actualizacion?: string;
   updated_at?: string;
+  created_at?: string;
   
   // Redes sociales
   telefono?: string;
@@ -52,17 +72,5 @@ export interface Local {
 // Tipo para locales sanitizados (mismo que Local)
 export type LocalSanitized = Local;
 
-// Tipo para respuesta de API
-export interface APIResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  total?: number;
-  mensaje?: string;
-  detalles?: string;
-}
-
-// Tipo para estado de la aplicación
-export type EstadoLocal = 'vacio' | 'medio' | 'caliente' | 'fuego';
-export type TipoLocal = 'bar' | 'club' | 'discoteca' | 'pub' | 
-'restaurante';
+// Alias para compatibilidad con shared
+export type { ApiResponse as APIResponse } from '@nightly/shared';
