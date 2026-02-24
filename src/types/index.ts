@@ -1,59 +1,109 @@
 // ============================================
-// IMPORTAR TIPOS BASE DESDE SHARED
-// ============================================
-export type {
-  Local as LocalBase,
-  TipoLocal,
-  EstadoLocal,
-  RolUsuario,
-  Perfil,
-  ApiResponse,
-  Coordenadas,
-  CodigoInvitacion,
-  SuperAdmin,
-  Auditoria,
-  LocalCreateDTO,
-  LocalUpdateDTO,
-} from '@nightly/shared';
-
-// ============================================
-// EXTENDER TIPOS PARA FRONTEND
+// TIPOS PARA FRONTEND — sin dependencia @nightly/shared
 // ============================================
 
-// Local con campos adicionales del frontend
-export interface Local {
+export type TipoLocal = 'bar' | 'club' | 'discoteca' | 'pub' | 'restaurante';
+export type EstadoLocal = 'vacio' | 'medio' | 'caliente' | 'fuego';
+export type RolUsuario = 'admin' | 'propietario';
+
+export interface Coordenadas {
+  lat: number;
+  lng: number;
+}
+
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  mensaje?: string;
+  total?: number;
+}
+
+export type APIResponse<T = any> = ApiResponse<T>;
+
+export interface Perfil {
   id: string;
+  rol: RolUsuario;
+  local_asignado_id?: string | null;
+  nombre_completo?: string | null;
+  email?: string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface CodigoInvitacion {
+  id: string;
+  codigo: string;
+  usado: boolean;
+  created_by: string;
+  usado_por?: string | null;
+  fecha_uso?: string | null;
+  created_at: string;
+}
+
+export interface SuperAdmin {
+  user_id: string;
   nombre: string;
-  tipo: 'bar' | 'club' | 'discoteca' | 'pub' | 'restaurante';
+  email: string;
+  created_at: string;
+}
+
+export interface Auditoria {
+  id: string;
+  tabla: string;
+  registro_id: string;
+  accion: 'INSERT' | 'UPDATE' | 'DELETE';
+  usuario_id?: string | null;
+  cambios: Record<string, any>;
+  created_at: string;
+}
+
+export interface LocalCreateDTO {
+  nombre: string;
+  tipo: TipoLocal;
   direccion: string;
   latitud: number;
   longitud: number;
-  
-  // Estado del local
-  estado: 'vacio' | 'medio' | 'caliente' | 'fuego';
+  estado?: EstadoLocal;
+  capacidad_actual?: number;
+  musica_actual?: string;
+  promocion?: string;
+  tiene_musica_en_vivo?: boolean;
+  es_zona_segura?: boolean;
+}
+
+export interface LocalUpdateDTO {
+  capacidad_actual?: number;
+  estado?: EstadoLocal;
+  musica_actual?: string | null;
+  promocion?: string | null;
+  tiempo_espera?: number;
+  tiene_musica_en_vivo?: boolean;
+}
+
+// Local con todos los campos del frontend
+export interface Local {
+  id: string;
+  nombre: string;
+  tipo: TipoLocal;
+  direccion: string;
+  latitud: number;
+  longitud: number;
+  estado: EstadoLocal;
   capacidad_actual: number;
   capacidad_maxima?: number;
-  
-  // Información adicional
+  plan?: 'basico' | 'profesional' | 'premium';
   musica_actual?: string | null;
   promocion?: string | null;
   tiempo_espera: number;
   tiene_musica_en_vivo: boolean;
   es_zona_segura: boolean;
-  
-  // Horarios
   horario_apertura?: string;
   horario_cierre?: string;
-  
-  // Precios y tags
   rango_precio?: string;
   tags?: string[];
   fotos?: string[];
-  
-  // Propietario
   propietario_id?: string;
-  
-  // Metadata
   activo: boolean;
   verificado?: boolean;
   codigo_invitacion?: string | null;
@@ -61,16 +111,11 @@ export interface Local {
   fecha_actualizacion?: string;
   updated_at?: string;
   created_at?: string;
-  
-  // Redes sociales
   telefono?: string;
   instagram?: string;
   facebook?: string;
   descripcion?: string;
 }
 
-// Tipo para locales sanitizados (mismo que Local)
+export type LocalBase = Local;
 export type LocalSanitized = Local;
-
-// Alias para compatibilidad con shared
-export type { ApiResponse as APIResponse } from '@nightly/shared';

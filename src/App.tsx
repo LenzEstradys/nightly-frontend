@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { Users, Home, X, MapPin, Clock, Music, Zap, Shield } from 'lucide-react';
-import type { Local } from '@nightly/shared';
+import type { Local } from './shared/types/index';
 import { 
   obtenerTextoEstado, 
   obtenerTextoTipo,
   obtenerColorHexEstado,
   obtenerEmojiTipo 
-} from '@nightly/shared/utils';
+} from './shared/utils/index';
 import { fetchLocales } from './utils/apiClient';
 import { Toast, useToast } from './components/Toast';
 import { Loading } from './components/Loading';
