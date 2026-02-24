@@ -113,10 +113,10 @@ function App() {
       <div className="bg-black/90 backdrop-blur-md border-b border-purple-500/30 p-3 md:p-4 z-10 flex-shrink-0">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center gap-2 md:gap-3">
-            <div className="text-2xl md:text-3xl">🌃</div>
+            <img src="/logo.png" alt="LaMovida" className="w-10 h-10 rounded-xl" />
             <div>
               <h1 className="text-2xl md:text-3xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent font-heading tracking-tight">
-                Nightly
+                LaMovida
               </h1>
               <p className="text-[10px] md:text-xs text-gray-400 flex items-center gap-1 md:gap-2 font-medium">
                 <span className="hidden sm:inline">La Paz •</span>
@@ -278,6 +278,24 @@ function App() {
 
             {/* Modal Content */}
             <div className="p-5 md:p-6 space-y-4">
+
+              {/* Fotos — Pro/Premium */}
+              {(localSeleccionado.plan === 'profesional' || localSeleccionado.plan === 'premium') && localSeleccionado.fotos && localSeleccionado.fotos.length > 0 && (
+                <div className="rounded-2xl overflow-hidden" style={{ height: '200px' }}>
+                  <img
+                    src={localSeleccionado.fotos[0]}
+                    alt={localSeleccionado.nombre}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+
+              {/* Descripción — Pro/Premium */}
+              {(localSeleccionado.plan === 'profesional' || localSeleccionado.plan === 'premium') && localSeleccionado.descripcion && (
+                <div className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <p className="text-sm text-gray-300 leading-relaxed">{localSeleccionado.descripcion}</p>
+                </div>
+              )}
               {/* Capacidad */}
               <div className="rounded-2xl p-6 md:p-8 relative overflow-hidden"
                 style={{
@@ -376,6 +394,32 @@ function App() {
                   </div>
                 )}
               </div>
+
+              {/* Instagram — Pro/Premium */}
+              {(localSeleccionado.plan === 'profesional' || localSeleccionado.plan === 'premium') && localSeleccionado.instagram && (
+                <a
+                  href={`https://instagram.com/${localSeleccionado.instagram.replace('@','')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#e2e8f0' }}
+                >
+                  📸 @{localSeleccionado.instagram.replace('@','')}
+                </a>
+              )}
+
+              {/* WhatsApp — Premium */}
+              {localSeleccionado.plan === 'premium' && localSeleccionado.telefono && (
+                <a
+                  href={`https://wa.me/591${localSeleccionado.telefono.replace(/\D/g,'')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                  style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', color: '#4ade80' }}
+                >
+                  💬 WhatsApp
+                </a>
+              )}
 
               {/* Botón Llévame */}
               <button
