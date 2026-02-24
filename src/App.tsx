@@ -282,6 +282,20 @@ function App() {
               {/* Fotos — Pro/Premium */}
               {(localSeleccionado.plan === 'profesional' || localSeleccionado.plan === 'premium') && localSeleccionado.fotos && localSeleccionado.fotos.length > 0 && (
                 <div className="rounded-2xl overflow-hidden" style={{ height: '200px' }}>
+                  <img src={localSeleccionado.fotos[0]} alt={localSeleccionado.nombre} className="w-full h-full object-cover" />
+                </div>
+              )}
+
+              {/* Descripción — Pro/Premium */}
+              {(localSeleccionado.plan === 'profesional' || localSeleccionado.plan === 'premium') && localSeleccionado.descripcion && (
+                <div className="p-4 rounded-xl" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <p className="text-sm text-gray-300 leading-relaxed">{localSeleccionado.descripcion}</p>
+                </div>
+              )}
+
+              {/* Fotos — Pro/Premium */}
+              {(localSeleccionado.plan === 'profesional' || localSeleccionado.plan === 'premium') && localSeleccionado.fotos && localSeleccionado.fotos.length > 0 && (
+                <div className="rounded-2xl overflow-hidden" style={{ height: '200px' }}>
                   <img
                     src={localSeleccionado.fotos[0]}
                     alt={localSeleccionado.nombre}
@@ -417,6 +431,24 @@ function App() {
                   className="w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
                   style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', color: '#4ade80' }}
                 >
+                  💬 WhatsApp
+                </a>
+              )}
+
+              {/* Instagram — Pro/Premium */}
+              {(localSeleccionado.plan === 'profesional' || localSeleccionado.plan === 'premium') && localSeleccionado.instagram && (
+                <a href={`https://instagram.com/${localSeleccionado.instagram.replace('@','')}`} target="_blank" rel="noopener noreferrer"
+                  className="w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#e2e8f0' }}>
+                  📸 @{localSeleccionado.instagram.replace('@','')}
+                </a>
+              )}
+
+              {/* WhatsApp — Premium */}
+              {localSeleccionado.plan === 'premium' && localSeleccionado.telefono && (
+                <a href={`https://wa.me/591${localSeleccionado.telefono.replace(/\D/g,'')}`} target="_blank" rel="noopener noreferrer"
+                  className="w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                  style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', color: '#4ade80' }}>
                   💬 WhatsApp
                 </a>
               )}
