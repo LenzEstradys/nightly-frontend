@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { Users, Home, X, MapPin, Clock, Music, Zap, Shield } from 'lucide-react';
-import type { Local } from './shared/types/index';
+import type { Local } from './types/index';
 import { 
   obtenerTextoEstado, 
   obtenerTextoTipo,

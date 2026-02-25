@@ -1,7 +1,7 @@
 /**
  * @nightly/shared/utils — copiado a src/shared/utils
  */
-import type { EstadoLocal, TipoLocal } from '../types/index.js';
+import type { EstadoLocal, TipoLocal } from '../types/index';
 
 export function calcularEstado(capacidad: number): EstadoLocal {
   if (capacidad >= 80) return 'fuego';
