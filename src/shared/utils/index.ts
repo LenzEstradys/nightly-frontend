@@ -1,7 +1,9 @@
 /**
- * @nightly/shared/utils — copiado a src/shared/utils
+ * shared/utils — funciones utilitarias
  */
-import type { EstadoLocal, TipoLocal } from '../types/index';
+
+type EstadoLocal = 'vacio' | 'medio' | 'caliente' | 'fuego';
+type TipoLocal = 'bar' | 'club' | 'discoteca' | 'pub' | 'restaurante';
 
 export function calcularEstado(capacidad: number): EstadoLocal {
   if (capacidad >= 80) return 'fuego';
