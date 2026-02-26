@@ -114,6 +114,7 @@ export interface Local {
   telefono?: string;
   instagram?: string;
   facebook?: string;
+  tiktok?: string;
   descripcion?: string;
 }
 

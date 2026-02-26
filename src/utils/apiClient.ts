@@ -55,5 +55,5 @@ export async function fetchLocales() {
     };
   }
 
-  return fetchWithRetry(apiUrl + '/api/locales');
+  return fetchWithRetry(apiUrl + '/api/locales', { cache: 'no-store' });
 }
