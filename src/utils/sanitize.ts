@@ -88,22 +88,22 @@ export interface LocalSanitized {
   promocion?: string;
   latitud: number;
   longitud: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
-export const sanitizeLocal = (local: any): LocalSanitized => {
+export const sanitizeLocal = (local: Record<string, unknown>): LocalSanitized => {
   return {
     ...local,
-    nombre: sanitizeLocalName(local.nombre),
-    direccion: sanitizeAddress(local.direccion),
-    musica_actual: local.musica_actual ? sanitizeMusic(local.musica_actual) : undefined,
-    promocion: local.promocion ? sanitizeDescription(local.promocion) : undefined,
-  };
+    nombre: sanitizeLocalName(local.nombre as string),
+    direccion: sanitizeAddress(local.direccion as string),
+    musica_actual: local.musica_actual ? sanitizeMusic(local.musica_actual as string) : undefined,
+    promocion: local.promocion ? sanitizeDescription(local.promocion as string) : undefined,
+  } as LocalSanitized;
 };
 
 /**
  * Sanitiza array de locales
  */
-export const sanitizeLocales = (locales: any[]): LocalSanitized[] => {
+export const sanitizeLocales = (locales: Record<string, unknown>[]): LocalSanitized[] => {
   return locales.map(sanitizeLocal);
 };

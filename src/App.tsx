@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
-import { Users, Home, X, MapPin, Clock, Music, Zap, Shield } from 'lucide-react';
-import type { Local } from './types/index';
+import { Users, Home, X, Clock, Music, Zap, Shield } from 'lucide-react';
+import type { Local, EstadoLocal, TipoLocal } from './types/index';
 import { 
   obtenerTextoEstado, 
   obtenerTextoTipo,
@@ -9,7 +9,8 @@ import {
   obtenerEmojiTipo 
 } from './shared/utils/index';
 import { fetchLocales } from './utils/apiClient';
-import { Toast, useToast } from './components/Toast';
+import { Toast } from './components/Toast';
+import { useToast } from './hooks/useToast';
 import { Loading } from './components/Loading';
 
 const mapContainerStyle = {
@@ -39,8 +40,8 @@ const mapOptions = {
 };
 
 const crearIconoPersonalizado = (tipo: string, estado: string): string => {
-  const color = obtenerColorHexEstado(estado as any);
-  const emoji = obtenerEmojiTipo(tipo as any);
+  const color = obtenerColorHexEstado(estado as EstadoLocal);
+  const emoji = obtenerEmojiTipo(tipo as TipoLocal);
 
   const svg = `
     <svg width="60" height="80" xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +69,6 @@ function App() {
   const [localSeleccionado, setLocalSeleccionado] = useState<Local | null>(null);
   const [cargando, setCargando] = useState(true);
   const [modoEscuadron, setModoEscuadron] = useState(false);
-  const [mostrarLeyenda, setMostrarLeyenda] = useState(false);
   const { toast, showToast, hideToast } = useToast();
   
   const { isLoaded } = useJsApiLoader({

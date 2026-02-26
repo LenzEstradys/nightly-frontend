@@ -11,7 +11,7 @@ export interface Coordenadas {
   lng: number;
 }
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;
@@ -19,7 +19,7 @@ export interface ApiResponse<T = any> {
   total?: number;
 }
 
-export type APIResponse<T = any> = ApiResponse<T>;
+export type APIResponse<T = unknown> = ApiResponse<T>;
 
 export interface Perfil {
   id: string;
@@ -54,7 +54,7 @@ export interface Auditoria {
   registro_id: string;
   accion: 'INSERT' | 'UPDATE' | 'DELETE';
   usuario_id?: string | null;
-  cambios: Record<string, any>;
+  cambios: Record<string, unknown>;
   created_at: string;
 }
 
