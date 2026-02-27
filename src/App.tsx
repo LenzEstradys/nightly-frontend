@@ -121,7 +121,7 @@ function App() {
       <div className="bg-black/90 backdrop-blur-md border-b border-purple-500/30 p-3 md:p-4 z-10 flex-shrink-0">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center gap-2 md:gap-3">
-            <img src="/logo.png" alt="LaMovida" className="w-8 h-8 rounded-xl" />
+            <img src="/logo.png" alt="LaMovida" className="w-6 h-6 rounded-lg" />
             <div>
               <h1 className="text-2xl md:text-3xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent font-heading tracking-tight">
                 LaMovida
@@ -289,7 +289,7 @@ function App() {
 
               {/* Fotos — Pro/Premium */}
               {(localSeleccionado.plan === 'profesional' || localSeleccionado.plan === 'premium') && localSeleccionado.fotos && localSeleccionado.fotos.length > 0 && (
-                <div className="rounded-2xl overflow-hidden" style={{ height: '200px' }}>
+                <div className="rounded-2xl overflow-hidden" style={{ height: '160px', flexShrink: 0 }}>
                   <img src={localSeleccionado.fotos[0]} alt={localSeleccionado.nombre} className="w-full h-full object-cover" />
                 </div>
               )}
