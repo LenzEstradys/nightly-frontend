@@ -12,6 +12,18 @@ createRoot(document.getElementById('root')!).render(
 // Registrar Service Worker para PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
+    // Desregistrar SWs viejos que no sean /sw.js con cache v3
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (const reg of registrations) {
+        if (reg.active?.scriptURL && !reg.active.scriptURL.endsWith('/sw.js')) {
+          reg.unregister();
+        }
+      }
+    });
+    caches.keys().then((keys) => {
+      keys.filter((k) => !k.startsWith('nightly-') || (!k.includes('v3'))).forEach((k) => caches.delete(k));
+    });
+
     navigator.serviceWorker
       .register('/sw.js')
       .then((registration) => {

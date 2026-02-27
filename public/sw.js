@@ -1,6 +1,6 @@
-const CACHE_NAME = 'nightly-v1.0.0';
-const STATIC_CACHE = 'nightly-static-v1';
-const DYNAMIC_CACHE = 'nightly-dynamic-v1';
+const CACHE_NAME = 'nightly-v3';
+const STATIC_CACHE = 'nightly-static-v3';
+const DYNAMIC_CACHE = 'nightly-dynamic-v3';
 
 // Assets estáticos para cachear
 const STATIC_ASSETS = [
@@ -14,7 +14,7 @@ const STATIC_ASSETS = [
 // URLs de la API que NO deben cachearse
 const API_URLS = [
   'https://nightly-backend.onrender.com',
-  'https://vragoadztmsswqtfvllly.supabase.co',
+  'https://vraqoadztmswgtfvlily.supabase.co',
 ];
 
 // Instalar Service Worker

@@ -286,12 +286,33 @@ function App() {
               </button>
             </div>
 
+            {/* Scroll indicator — gradiente + flecha al fondo */}
+            <div
+              style={{
+                position: 'sticky',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '56px',
+                background: 'linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.97))',
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+                paddingBottom: '6px',
+                pointerEvents: 'none',
+                marginTop: '-56px',
+                zIndex: 5,
+              }}
+            >
+              <span style={{ color: 'rgba(251,191,36,0.7)', fontSize: '18px', lineHeight: 1 }}>↓</span>
+            </div>
+
             {/* Modal Content */}
             <div className="p-5 md:p-6 space-y-4">
 
               {/* Fotos — Pro/Premium */}
               {(localSeleccionado.plan === 'profesional' || localSeleccionado.plan === 'premium') && localSeleccionado.fotos && localSeleccionado.fotos.length > 0 && (
-                <div className="rounded-2xl overflow-hidden" style={{ height: '160px', flexShrink: 0 }}>
+                <div className="rounded-2xl overflow-hidden" style={{ height: '140px', flexShrink: 0 }}>
                   <img src={localSeleccionado.fotos[0]} alt={localSeleccionado.nombre} className="w-full h-full object-cover" />
                 </div>
               )}
@@ -304,13 +325,13 @@ function App() {
               )}
 
               {/* Capacidad */}
-              <div className="rounded-2xl p-6 md:p-8 relative overflow-hidden"
+              <div className="rounded-2xl p-4 md:p-6 relative overflow-hidden"
                 style={{
                   background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(251, 191, 36, 0.03) 100%)',
                   border: '1px solid rgba(251, 191, 36, 0.2)',
                 }}
               >
-                <div className="text-6xl md:text-7xl font-black mb-3 tracking-tighter font-heading"
+                <div className="text-4xl md:text-5xl font-black mb-2 tracking-tighter font-heading"
                   style={{
                     color: '#fbbf24',
                     textShadow: '0 4px 20px rgba(251, 191, 36, 0.3)',
