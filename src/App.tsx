@@ -123,7 +123,7 @@ function App() {
           <div className="flex items-center gap-2 md:gap-3">
             <img src="/logo.png" alt="LaMovida" className="w-6 h-6 rounded-lg" />
             <div>
-              <h1 className="text-2xl md:text-3xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent font-heading tracking-tight">
+              <h1 className="text-lg md:text-xl font-black bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent font-heading tracking-tight">
                 LaMovida
               </h1>
               <p className="text-[10px] md:text-xs text-gray-400 flex items-center gap-1 md:gap-2 font-medium">
@@ -233,13 +233,15 @@ function App() {
               padding: window.innerWidth >= 768 ? '16px' : '0',
             }}
           >
-            <div 
-              className="w-full overflow-y-auto shadow-dramatic animate-fade-in-modal"
+            <div
+              className="w-full shadow-dramatic animate-fade-in-modal"
               style={{
                 pointerEvents: 'auto',
                 position: 'relative',
                 maxWidth: window.innerWidth >= 768 ? '512px' : '100%',
                 maxHeight: window.innerWidth >= 768 ? '85vh' : '80vh',
+                overflowY: 'scroll',
+                WebkitOverflowScrolling: 'touch',
                 borderWidth: window.innerWidth >= 768 ? '1px' : '2px 0 0 0',
                 borderRadius: window.innerWidth >= 768 ? '24px' : '32px 32px 0 0',
                 background: 'linear-gradient(165deg, #1e293b 0%, #0f172a 100%)',
