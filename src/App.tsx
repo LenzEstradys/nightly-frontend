@@ -117,10 +117,6 @@ function App() {
 
   return (
     <div className="h-screen bg-gray-900 text-white flex flex-col overflow-hidden">
-      {/* DEPLOY TEST - BORRAR */}
-      <div style={{background:'red', color:'white', textAlign:'center', padding:'10px', fontWeight:'bold'}}>
-        DEPLOY TEST - BORRAR — commit 45022c5
-      </div>
       {/* Header - Responsive */}
       <div className="bg-black/90 backdrop-blur-md border-b border-purple-500/30 p-3 md:p-4 z-10 flex-shrink-0">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
