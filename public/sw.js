@@ -1,6 +1,6 @@
-const CACHE_NAME = 'nightly-v3';
-const STATIC_CACHE = 'nightly-static-v3';
-const DYNAMIC_CACHE = 'nightly-dynamic-v3';
+const CACHE_NAME = 'nightly-v4';
+const STATIC_CACHE = 'nightly-static-v4';
+const DYNAMIC_CACHE = 'nightly-dynamic-v4';
 
 // Assets estáticos para cachear
 const STATIC_ASSETS = [
