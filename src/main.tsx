@@ -44,6 +44,21 @@ faltante.
   throw error;
 }
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((reg) => {
+      reg.active?.scriptURL && !reg.active.scriptURL.includes('sw.js')
+        ? reg.unregister()
+        : null;
+    });
+  });
+  caches.keys().then((cacheNames) => {
+    cacheNames.forEach((name) => {
+      if (!name.includes('v3')) caches.delete(name);
+    });
+  });
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
